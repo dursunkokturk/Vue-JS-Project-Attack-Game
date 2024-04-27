@@ -8,17 +8,10 @@ const app = Vue.createApp({
       winner: null,
       myHealth: 100,
       computerHealth: 100,
-
-      // Saldiri Sayisini Tutuyoruz
       currentRound: 0,
     };
   },
   watch: {
-
-    // Oynayan Kisinin Kalan Can Durumunu Kontrol Ediyoruz
-    // Oyun Bittiginde Hem Kisinin Hem de Bilgisayarin Cani Kalmadiginda 
-    // Beraberlik Durumu Olacak
-    // Diger Durumda Bilgisayar Kazanacak
     myHealth(value) {
       if (value <= 0 && this.computerHealth <= 0) {
         this.winner = 'draw';
@@ -26,11 +19,6 @@ const app = Vue.createApp({
         this.winner = 'computer';
       }
     },
-
-    // Oynayan Kisinin Kalan Can Durumunu Kontrol Ediyoruz
-    // Oyun Bittiginde Hem Kisinin Hem de Bilgisayarin Cani Kalmadiginda 
-    // Beraberlik Durumu Olacak
-    // Diger Durumda Oyuncu Kazanacak
     computerHealth(value) {
       if (value <= 0 && this.myHealth <= 0) {
         this.winner = 'draw';
@@ -54,17 +42,12 @@ const app = Vue.createApp({
         return { width: this.myHealth + '%' };
       }
     },
-
-    // Saldiri Sayisi 4 Oldugunda
-    // SuperAttack Butonu Aktif Olacak
     possibleSpecialAttack() {
       return this.currentRound % 4 !== 0;
     },
   },
   methods: {
     attackToComputer() {
-
-      // Saldiri Sayisini Artiriyoruz
       this.currentRound++;
       const attackValue = getRandomValue(7, 15);
       this.computerHealth -= attackValue;
@@ -75,16 +58,12 @@ const app = Vue.createApp({
       this.myHealth -= attackValue;
     },
     specialAttack() {
-
-      // Saldiri Sayisini Artiriyoruz
       this.currentRound++;
       const attackValue = getRandomValue(15, 30);
       this.computerHealth -= attackValue;
       this.attackMe();
     },
     healMe() {
-
-      // Saldiri Sayisini Artiriyoruz
       this.currentRound++;
       const healValue = getRandomValue(15, 20);
       if (this.myHealth + healValue > 100) {
